@@ -23,6 +23,12 @@ function Navbar() {
         <li>
           <Link href={"/about"}>About</Link>
         </li>
+        <li>
+          <Link href={"/blog"}>Blog</Link>
+        </li>
+        <li>
+          <Link href={"/contact"}>Contact</Link>
+        </li>
         <li className="buttons space-x-2 ">
           <Link href={"/login"}>
             <Button variant="outline">Login </Button>
