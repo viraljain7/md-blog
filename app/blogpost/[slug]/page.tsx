@@ -9,6 +9,9 @@ import rehypeStringify from "rehype-stringify";
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import { unified } from "unified";
+import OnThisPage from "@/components/OnThisPage";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import rehypeSlug from "rehype-slug";
 
 async function page({ params }: { params: { slug: string } }) {
   const processor = unified()
@@ -16,7 +19,9 @@ async function page({ params }: { params: { slug: string } }) {
     .use(remarkRehype)
     .use(rehypeDocument, { title: "👋🌍" })
     .use(rehypeFormat)
-    .use(rehypeStringify);
+    .use(rehypeStringify)
+    .use(rehypeSlug)
+    .use(rehypeAutolinkHeadings);
 
   try {
     const filePath = path.join(process.cwd(), "content", `${params.slug}.md`);
@@ -26,8 +31,15 @@ async function page({ params }: { params: { slug: string } }) {
 
     return (
       <MaxWidthWrapper className="prose prose-slate dark:prose-invert">
-        <h1>{data.title}</h1>
-        <div dangerouslySetInnerHTML={{ __html: htmlContent }}></div>
+        <div className="flex">
+          <div className="w-full md:w-3/4 px-10">
+            <h1>{data.title}</h1>
+            <div dangerouslySetInnerHTML={{ __html: htmlContent }}></div>
+          </div>
+          <div className="hidden md:w-1/4 sticky top-5 self-start">
+            <OnThisPage className="text-md" htmlContent={htmlContent} />
+          </div>
+        </div>
       </MaxWidthWrapper>
     );
   } catch (error) {
