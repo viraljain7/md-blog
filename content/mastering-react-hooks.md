@@ -142,7 +142,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to view the 
 <details>
 <summary><code>app/globals.css</code></summary>
 
-```css
+```css {1-3,4}
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -338,7 +338,7 @@ export default config;
 <details>
 <summary><code>components/MeetingCard.tsx</code></summary>
 
-```typescript
+```typescript {1-3,4}
 "use client";
 
 import Image from "next/image";

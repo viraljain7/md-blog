@@ -12,6 +12,8 @@ import { unified } from "unified";
 import OnThisPage from "@/components/OnThisPage";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeSlug from "rehype-slug";
+import rehypePrettyCode from "rehype-pretty-code";
+import { transformerCopyButton } from "@rehype-pretty/transformers";
 
 async function page({ params }: { params: { slug: string } }) {
   const processor = unified()
@@ -21,6 +23,16 @@ async function page({ params }: { params: { slug: string } }) {
     .use(rehypeFormat)
     .use(rehypeStringify)
     .use(rehypeSlug)
+    .use(rehypePrettyCode, {
+      theme: "monokai",
+      keepBackground: false,
+      transformers: [
+        transformerCopyButton({
+          visibility: "always",
+          feedbackDuration: 3_000,
+        }),
+      ],
+    })
     .use(rehypeAutolinkHeadings);
 
   try {
@@ -36,7 +48,7 @@ async function page({ params }: { params: { slug: string } }) {
             <h1>{data.title}</h1>
             <div dangerouslySetInnerHTML={{ __html: htmlContent }}></div>
           </div>
-          <div className="hidden md:w-1/4 sticky top-5 self-start">
+          <div className="hidden md:block md:w-1/4 sticky top-5 self-start">
             <OnThisPage className="text-md" htmlContent={htmlContent} />
           </div>
         </div>

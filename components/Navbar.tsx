@@ -14,7 +14,7 @@ import {
 
 function Navbar() {
   return (
-    <nav className=" h-16 bg-background/20 sticky top-0 border-b px-8 backdrop-blur flex items-center justify-between">
+    <nav className=" h-16 bg-background/20 sticky top-0 border-b px-8 backdrop-blur flex items-center justify-between z-30">
       <div className="text-lg font-bold md:text-xl ">DevXBlog</div>
       <ul className="hidden md:flex text-xl  w-full justify-end items-center space-x-6">
         <li>
